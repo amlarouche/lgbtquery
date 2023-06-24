@@ -4,10 +4,15 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import axios from 'axios';
 
 export default async function searchReposHandler(req: NextApiRequest, res: NextApiResponse) {
-  const language = 'javascript'
+  if (req.method !== 'POST') {
+    return res.status(403).json({ error: 'Unauthorized method' })
+  }
+
+  const { searchTerm, language } = req.body
+
   try {
     // Send GET request to GitHub API
-    const url = `https://api.github.com/search/repositories?q=queer OR LGBTQ OR LGBT+in:readme&language=${language}`;
+    const url = `https://api.github.com/search/repositories?q=queer OR LGBTQ OR LGBT+${searchTerm}+in:readme&language=${language}`;
     const response = await axios.get(url);
 
     // Process the response
@@ -19,7 +24,7 @@ export default async function searchReposHandler(req: NextApiRequest, res: NextA
       contributors_url: item.contributors_url,
       owner: item.owner.login
     }));
- 
+
     res.status(200).json(repos);
   } catch (error) {
     console.error('Request failed:', error);

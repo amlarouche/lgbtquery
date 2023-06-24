@@ -1,10 +1,21 @@
 import Head from "next/head"
-import { Box, Button, Flex, Heading, Select, Text } from "@chakra-ui/react"
+import { Box, Button, Flex, Heading, Input, Select, Text } from "@chakra-ui/react"
 import axios from "axios"
 import Link from "next/link"
 import NavBar from "@/components/NavBar"
+import { useState } from "react"
+import ReposDisplay from "@/components/ReposDisplay"
 
 export default function Home({ facts }: { facts: Record<string, any>[] }) {
+  const [projectSearchTerm, setProjectSearchTerm] = useState("")
+  const [languageSearchTerm, setLanguageSearchTerm] = useState("")
+  const [reposArray, setReposArray] = useState([] as Record<string, any>[])
+
+  const handleClick = async () => {
+    const { data } = await axios.post("http://localhost:3000/api/repos", { searchTerm: projectSearchTerm, language: languageSearchTerm })
+    setReposArray(data)
+  }
+
   return (
     <>
       <Head>
@@ -20,35 +31,22 @@ export default function Home({ facts }: { facts: Record<string, any>[] }) {
           <Box margin={"32px"}>
             <Flex mt={"8px"}>
               <Text minWidth="128px">Project Type:</Text>
-              <Select minWidth="256px">
-                <option value="cool">Cool</option>
-                <option value="neat">Neat</option>
-              </Select>
+              <Input onChange={(e) => setProjectSearchTerm(e.target.value)} placeholder={'Enter a project idea...'}/>
             </Flex>
             <Flex mt={"8px"}>
               <Text minWidth="128px">Language:</Text>
-              <Select minWidth="256px">
+              <Select onChange={(e) => setLanguageSearchTerm(e.target.value)} minWidth="256px" placeholder="Select a language">
                 <option value="Javascript">Javascript</option>
                 <option value="Python">Python</option>
               </Select>
             </Flex>
           </Box>
-          <Button>
-            <Link href={"/results"}>Click here for the app</Link>
+          <Button onClick={handleClick}>
+            Search
           </Button>
         </Flex>
+        {reposArray.length > 0 && <ReposDisplay repos={reposArray}/>}
       </Flex>
     </>
   )
-}
-
-export async function getStaticProps() {
-  // test for getting props
-  const { data } = await axios("https://cat-fact.herokuapp.com/facts")
-
-  return {
-    props: {
-      facts: data,
-    },
-  }
 }
