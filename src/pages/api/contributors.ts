@@ -13,7 +13,6 @@ export default async function searchContributorsHandler(req: NextApiRequest, res
 
     // Process the response
     const data = response.data;
-    // console.log(data)
     const contributors = data.map((item: any) => ({
       login: item.login,
       avatar: item.avatar_url,
