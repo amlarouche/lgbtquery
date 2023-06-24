@@ -3,22 +3,24 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import axios from 'axios';
 
-export default async function searchProfilesHandler(req: NextApiRequest, res: NextApiResponse) {
-
+export default async function searchReposHandler(req: NextApiRequest, res: NextApiResponse) {
+  const language = 'javascript'
   try {
     // Send GET request to GitHub API
-    const url = `https://api.github.com/search/users?q=queer OR LGBTQ OR LGBT+in:readme&sort=random`;
+    const url = `https://api.github.com/search/repositories?q=queer OR LGBTQ OR LGBT+in:readme&language=${language}`;
     const response = await axios.get(url);
 
     // Process the response
     const data = response.data;
-    const profiles = data.items.map((item: any) => ({
-      login: item.login,
+    const repos = data.items.map((item: any) => ({
+      name: item.name,
       html_url: item.html_url,
-      avatar_url: item.avatar_url
+      description: item.description,
+      contributors_url: item.contributors_url,
+      owner: item.owner.login
     }));
-    console.log(profiles.length)
-    res.status(200).json(profiles);
+ 
+    res.status(200).json(repos);
   } catch (error) {
     console.error('Request failed:', error);
     res.status(500).json({ error: 'An error occurred while processing the request.' });
