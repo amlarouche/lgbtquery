@@ -15,6 +15,7 @@ export default async function searchProfilesHandler(req: NextApiRequest, res: Ne
     const profiles = data.items.map((item: any) => ({
       login: item.login,
       html_url: item.html_url,
+      avatar_url: item.avatar_url
     }));
     console.log(profiles.length)
     res.status(200).json(profiles);
