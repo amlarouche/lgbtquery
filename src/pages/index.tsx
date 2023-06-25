@@ -12,7 +12,8 @@ export default function Home({ facts }: { facts: Record<string, any>[] }) {
   const [projectSearchTerm, setProjectSearchTerm] = useState("")
   const [languageSearchTerm, setLanguageSearchTerm] = useState("")
   const [reposArray, setReposArray] = useState([] as Record<string, any>[])
-  const [openSearch, setOpenSearch] = useState(true)
+  const [openSearch, setOpenSearch] = useState<boolean>(true)
+  const [open, setOpen] = useState<boolean>(false)
 
   const handleClick = async () => {
     if (openSearch) {
@@ -26,7 +27,7 @@ export default function Home({ facts }: { facts: Record<string, any>[] }) {
   }
 
   const questionBoxViews = {
-    hidden: [<MinimizeQuestionBox key="QBH" />, "Search Again?"],
+    hidden: [<MinimizeQuestionBox key="QBH" />, "Again!"],
     view: [
       <QuestionBox
         key="QB"
