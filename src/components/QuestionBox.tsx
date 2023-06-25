@@ -23,8 +23,13 @@ const QuestionBox: FC<QuestionBoxType> = ({ setLanguageSearchTerm, setProjectSea
           minWidth="256px"
           placeholder="Select a language"
         >
-          <option value="Javascript">Javascript</option>
-          <option value="Python">Python</option>
+          <option value="javascript">Javascript</option>
+          <option value="typescript">Typescript</option>
+          <option value="python">Python</option>
+          <option value="rust">Rust</option>
+          <option value="java">Java</option>
+          <option value="golang">Golang</option>
+          <option value="assembly">Assembly</option>
         </Select>
       </Flex>
     </Box>

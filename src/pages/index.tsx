@@ -65,7 +65,7 @@ export default function Home() {
           className="question-box"
         >
           <Heading size={"md"}>
-            {openSearch ? "Hi there! Fill in your data" : "Feel free to search again :)"}
+            {openSearch ? "Find a queer coder - search for projects in the language you need: " : "Feel free to search again :)"}
           </Heading>
           {openSearch ? questionBoxViews.view[0] : questionBoxViews.hidden[0]}
           <Button onClick={handleClick} backgroundColor={"rgba(227, 156, 223,0.6)"}>
