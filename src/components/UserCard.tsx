@@ -17,8 +17,8 @@ export default function UserCard({ user }: { user: Record<string, any> }) {
     >
       <Image src={user.avatar} alt={`user's profile photo`} maxH={"100px"} />
       <Heading>{user.login}</Heading>
-      <Text m="8px">Other projects: {user.contributions}</Text>
-      <Button backgroundColor={"rgba(109, 209, 178,0.4)"} m="8px">
+      <Text>Contributions to repository: {user.contributions}</Text>
+      <Button backgroundColor={"rgba(109, 209, 178,0.4)"}>
         <Link href={user.html_url}>Profile</Link>
       </Button>
     </Flex>
