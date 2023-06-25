@@ -1,20 +1,31 @@
-import { Flex, Heading, Image, Text } from "@chakra-ui/react";
-import Link from "next/link";
+import { Flex, Heading, Image, Text } from "@chakra-ui/react"
+import Link from "next/link"
 
 export default function NavBar({ isHomepage }: { isHomepage: boolean }) {
-
-    if (isHomepage) {
-        return (
-            <Flex padding="32px" align="center" justify="center" height="20px">
-                <Heading>LGBTQuery</Heading>
-            </Flex>
-        )
-    }
-    return (
-        <Flex justify="space-between" padding="32px" align="center" height="20px">
-            <Text><Link href="/">New Search</Link></Text>
-            <Heading flexGrow={1} textAlign={"center"}>LGBTQuery</Heading>
-            <Text><Link href="/">Contact</Link></Text>
-        </Flex>
-    )
+  const newSearch = (
+    <Text>
+      <Link href="/">New Search</Link>
+    </Text>
+  )
+  const contact = (
+    <Text>
+      <Link href="/">Contact</Link>
+    </Text>
+  )
+  return (
+    <Flex
+      className="header"
+      padding="32px"
+      align="center"
+      justify="center"
+      height="20px"
+      fontSize="80px"
+    >
+      {isHomepage ? newSearch : null}
+      <Heading fontSize="60px" fontFamily={"'Caprasimo', cursive"}>
+        LGBTQuery
+      </Heading>
+      {isHomepage ? contact : null}
+    </Flex>
+  )
 }

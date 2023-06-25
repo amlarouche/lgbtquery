@@ -7,7 +7,11 @@ import axios from "axios"
 import { GetServerSidePropsContext } from "next"
 import { ParsedUrlQuery } from "querystring"
 
-export default function Results({ returnedContributors }: { returnedContributors: Record<string, any>[] }) {
+export default function Results({
+  returnedContributors,
+}: {
+  returnedContributors: Record<string, any>[]
+}) {
   return (
     <>
       <Head>
@@ -17,32 +21,32 @@ export default function Results({ returnedContributors }: { returnedContributors
       </Head>
       <NavBar isHomepage={false} />
       <Flex flexWrap={"wrap"} padding={"32px"} height="80vh" justify="center" align="center">
-        {returnedContributors.map(contributor => <UserCard key={contributor.login} user={contributor} />)}
+        {returnedContributors.map((contributor) => (
+          <UserCard key={contributor.login} user={contributor} />
+        ))}
       </Flex>
     </>
   )
 }
 
-
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { contributors } = context.params as ParsedUrlQuery
-  const [owner, repo] = String(contributors).split('_')
-  const url = `https://api.github.com/repos/${owner}/${repo}/contributors`;
-  const response = await axios.get(url);
+  const [owner, repo] = String(contributors).split("_")
+  const url = `https://api.github.com/repos/${owner}/${repo}/contributors`
+  const response = await axios.get(url)
 
   // Process the response
-  const data = response.data;
+  const data = response.data
   const returnedContributors = data.map((item: any) => ({
     login: item.login,
     avatar: item.avatar_url,
     contributions: item.contributions,
-    html_url: item.html_url
-  }));
+    html_url: item.html_url,
+  }))
 
   return {
     props: {
-      returnedContributors
-    }
+      returnedContributors,
+    },
   }
-
 }

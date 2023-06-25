@@ -5,15 +5,36 @@ import Link from "next/link"
 import NavBar from "@/components/NavBar"
 import { useState } from "react"
 import ReposDisplay from "@/components/ReposDisplay"
+import QuestionBox from "@/components/QuestionBox"
+import MinimizeQuestionBox from "@/components/MinimizeQuestionBox"
 
 export default function Home({ facts }: { facts: Record<string, any>[] }) {
   const [projectSearchTerm, setProjectSearchTerm] = useState("")
   const [languageSearchTerm, setLanguageSearchTerm] = useState("")
   const [reposArray, setReposArray] = useState([] as Record<string, any>[])
+  const [openSearch, setOpenSearch] = useState(true)
 
   const handleClick = async () => {
-    const { data } = await axios.post("http://localhost:3000/api/repos", { searchTerm: projectSearchTerm, language: languageSearchTerm })
-    setReposArray(data)
+    if (openSearch) {
+      const { data } = await axios.post("http://localhost:3000/api/repos", {
+        searchTerm: projectSearchTerm,
+        language: languageSearchTerm,
+      })
+      setReposArray(data)
+    }
+    setOpenSearch(!openSearch)
+  }
+
+  const questionBoxViews = {
+    hidden: [<MinimizeQuestionBox key="QBH" />, "Search Again?"],
+    view: [
+      <QuestionBox
+        key="QB"
+        setProjectSearchTerm={setProjectSearchTerm}
+        setLanguageSearchTerm={setLanguageSearchTerm}
+      />,
+      "Submit",
+    ],
   }
 
   return (
@@ -24,28 +45,33 @@ export default function Home({ facts }: { facts: Record<string, any>[] }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <NavBar isHomepage={true} />
-      <Flex flexDir="column" height="100vh" justify="center" align="center">
-
-        <Flex m="8px" border={"1px solid black"} borderRadius={"8px"} width={"40%"} height={"40%"} padding="32px" align="center" flexDir="column">
-          <Heading size={"md"}>Hi there! Fill in your data</Heading>
-          <Box margin={"32px"}>
-            <Flex mt={"8px"}>
-              <Text minWidth="128px">Project Type:</Text>
-              <Input onChange={(e) => setProjectSearchTerm(e.target.value)} placeholder={'Enter a project idea...'}/>
-            </Flex>
-            <Flex mt={"8px"}>
-              <Text minWidth="128px">Language:</Text>
-              <Select onChange={(e) => setLanguageSearchTerm(e.target.value)} minWidth="256px" placeholder="Select a language">
-                <option value="Javascript">Javascript</option>
-                <option value="Python">Python</option>
-              </Select>
-            </Flex>
-          </Box>
-          <Button onClick={handleClick}>
-            Search
+      <Flex
+        flexDir="column"
+        justify="center"
+        align="center"
+        className="main-container"
+        margin={reposArray.length > 0 ? "50px" : "50px"}
+      >
+        <Flex
+          m="8px"
+          border={"1px solid rgba(1, 65, 255, 0.2)"}
+          borderRadius={"8px"}
+          width={"40%"}
+          height={openSearch ? "30%" : "20%"}
+          padding="32px"
+          align="center"
+          flexDir="column"
+          className="question-box"
+        >
+          <Heading size={"md"}>
+            {openSearch ? "Hi there! Fill in your data" : "Feel free to search again :)"}
+          </Heading>
+          {openSearch ? questionBoxViews.view[0] : questionBoxViews.hidden[0]}
+          <Button onClick={handleClick} backgroundColor={"rgba(227, 156, 223,0.6)"}>
+            {openSearch ? questionBoxViews.view[1] : questionBoxViews.hidden[1]}
           </Button>
         </Flex>
-        {reposArray.length > 0 && <ReposDisplay repos={reposArray}/>}
+        {reposArray.length > 0 && <ReposDisplay repos={reposArray} />}
       </Flex>
     </>
   )
