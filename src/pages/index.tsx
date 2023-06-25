@@ -8,7 +8,7 @@ import ReposDisplay from "@/components/ReposDisplay"
 import QuestionBox from "@/components/QuestionBox"
 import MinimizeQuestionBox from "@/components/MinimizeQuestionBox"
 
-export default function Home({ facts }: { facts: Record<string, any>[] }) {
+export default function Home() {
   const [projectSearchTerm, setProjectSearchTerm] = useState("")
   const [languageSearchTerm, setLanguageSearchTerm] = useState("")
   const [reposArray, setReposArray] = useState([] as Record<string, any>[])
@@ -73,7 +73,11 @@ export default function Home({ facts }: { facts: Record<string, any>[] }) {
           </Button>
         </Flex>
         {reposArray.length > 0 && <ReposDisplay repos={reposArray} />}
+        <Text justifySelf="flex-end" fontSize="20px" className="nav-link">
+          <Link href="/contact">Contact</Link>
+        </Text>
       </Flex>
+
     </>
   )
 }
