@@ -27,23 +27,22 @@ export default function RepoCard({ repo }: { repo: Record<string, any> }) {
       backgroundColor={"white"}
     >
       <div>
-        <Text align={"center"} fontWeight={"800"} color={"#" + randomColor}>
-          Name: {repo.name}
+        <Text pb="4px" align={"center"} fontWeight={"800"} color={"#" + randomColor}>
+          {repo.name}
         </Text>
-        <Text align={"center"}>
+        <Text pb="4px" align={"center"}>
           <Link href={repo.html_url} className={"repo-link"}>
             <u>Repository</u>
           </Link>
         </Text>
-        <Text align={"center"}>
-          Description:
-          {expand
+        <Text pb="4px" align={"center"}>
+          {`Description: ${expand
             ? repo?.description || "None"
             : (repo?.description?.slice(0, 20) || "None") +
-              (repo?.description?.length > 20 ? "..." : "")}{" "}
+            (repo?.description?.length > 20 ? "..." : "")}`}
         </Text>
-        {repo?.description?.length > 20 ? (
-          <Flex justify={"center"} align={"center"} cursor="pointer">
+        {repo?.description?.length > 20 && (
+          <Flex pb="4px" justify={"center"} align={"center"} cursor="pointer">
             <Text
               className={"expand-link"}
               color={"#" + randomColor}
@@ -55,11 +54,11 @@ export default function RepoCard({ repo }: { repo: Record<string, any> }) {
               {expand && repo?.description?.length > 20 ? "–" : "+"}
             </Text>
           </Flex>
-        ) : (
-          ""
         )}
       </div>
       <Button
+        m="4px"
+        padding={"8px 16px"}
         backgroundColor={"rgba(109, 209, 178,0.4)"}
         className={"contribute-button"}
         onClick={() => handleClick(repo.owner, repo.name)}

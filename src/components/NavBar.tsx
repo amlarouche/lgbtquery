@@ -9,7 +9,7 @@ export default function NavBar({ isHomepage }: { isHomepage: boolean }) {
   )
   const contact = (
     <Text fontSize="20px" className="nav-link">
-      <Link href="/">Contact</Link>
+      <Link href="/contact">Contact</Link>
     </Text>
   )
 
@@ -25,7 +25,9 @@ export default function NavBar({ isHomepage }: { isHomepage: boolean }) {
     >
       {!isHomepage ? newSearch : null}
       <Heading color={"#" + randomColor} fontSize="60px" fontFamily={"'Caprasimo', cursive"}>
-        LGBTQuery
+        <Link href="/">
+          LGBTQuery
+        </Link>
       </Heading>
       {!isHomepage ? contact : null}
     </Flex>

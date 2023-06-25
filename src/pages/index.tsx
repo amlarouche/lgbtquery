@@ -8,7 +8,7 @@ import ReposDisplay from "@/components/ReposDisplay"
 import QuestionBox from "@/components/QuestionBox"
 import MinimizeQuestionBox from "@/components/MinimizeQuestionBox"
 
-export default function Home({ facts }: { facts: Record<string, any>[] }) {
+export default function Home() {
   const [projectSearchTerm, setProjectSearchTerm] = useState("")
   const [languageSearchTerm, setLanguageSearchTerm] = useState("")
   const [reposArray, setReposArray] = useState([] as Record<string, any>[])
@@ -65,7 +65,7 @@ export default function Home({ facts }: { facts: Record<string, any>[] }) {
           className="question-box"
         >
           <Heading size={"md"}>
-            {openSearch ? "Hi there! Fill in your data" : "Feel free to search again :)"}
+            {openSearch ? "Find a queer coder - search for projects in the language you need: " : "Feel free to search again :)"}
           </Heading>
           {openSearch ? questionBoxViews.view[0] : questionBoxViews.hidden[0]}
           <Button onClick={handleClick} backgroundColor={"rgba(227, 156, 223,0.6)"}>
@@ -73,7 +73,11 @@ export default function Home({ facts }: { facts: Record<string, any>[] }) {
           </Button>
         </Flex>
         {reposArray.length > 0 && <ReposDisplay repos={reposArray} />}
+        <Text justifySelf="flex-end" fontSize="20px" className="nav-link">
+          <Link href="/contact">Contact</Link>
+        </Text>
       </Flex>
+
     </>
   )
 }
