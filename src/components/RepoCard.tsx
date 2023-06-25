@@ -39,7 +39,7 @@ export default function RepoCard({ repo }: { repo: Record<string, any> }) {
           Description:
           {expand
             ? repo?.description || "None"
-            : (repo?.description?.slice(0, 25) || "None") +
+            : (repo?.description?.slice(0, 20) || "None") +
               (repo?.description?.length > 20 ? "..." : "")}{" "}
         </Text>
         {repo?.description?.length > 20 ? (
