@@ -1,7 +1,8 @@
 import { Button, Flex, Heading, Image, Text, useRadio } from "@chakra-ui/react"
 import Link from "next/link"
 
-export default function UserCard({ user }: { user: Record<string, any> }) {
+export default function UserCard({ user, isCreator = false }: { user: Record<string, any>, isCreator?: boolean }) {
+  const fillerText = isCreator ? "Other projects:" : "Contributions to repository:"
   return (
     <Flex
       flexDir="column"
@@ -17,7 +18,7 @@ export default function UserCard({ user }: { user: Record<string, any> }) {
     >
       <Image src={user.avatar} alt={`${user.login}'s profile photo`} maxH={"100px"} />
       <Heading>{user.login}</Heading>
-      <Text>Contributions to repository: {user.contributions}</Text>
+      <Text>{`${fillerText} ${user.contributions}`}</Text>
       <Button backgroundColor={"rgba(109, 209, 178,0.4)"}>
         <Link href={user.html_url}>Profile</Link>
       </Button>
