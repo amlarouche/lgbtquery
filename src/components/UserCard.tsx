@@ -15,7 +15,7 @@ export default function UserCard({ user }: { user: Record<string, any> }) {
       padding={"32px"}
       m="16px"
     >
-      <Image src={user.avatar} alt={`user's profile photo`} maxH={"100px"} />
+      <Image src={user.avatar} alt={`${user.login}'s profile photo`} maxH={"100px"} />
       <Heading>{user.login}</Heading>
       <Text>Contributions to repository: {user.contributions}</Text>
       <Button backgroundColor={"rgba(109, 209, 178,0.4)"}>
