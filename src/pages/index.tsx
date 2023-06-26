@@ -17,7 +17,7 @@ export default function Home() {
 
   const handleClick = async () => {
     if (openSearch) {
-      const { data } = await axios.post("http://localhost:3000/api/repos", {
+      const { data } = await axios.post(`${process.env.NEXT_PUBLIC_URL}/api/repos`, {
         searchTerm: projectSearchTerm,
         language: languageSearchTerm,
       })

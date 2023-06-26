@@ -1,11 +1,8 @@
 import Head from "next/head"
-import { Box, Button, Flex, Heading, Input, Select, Text } from "@chakra-ui/react"
-
+import {Flex } from "@chakra-ui/react"
 import NavBar from "@/components/NavBar"
 import axios from "axios"
-import ResponseCache from "next/dist/server/response-cache"
 import UserCard from "@/components/UserCard"
-import { GetStaticPropsResult } from "next"
 
 
 export default function Contact({ returnedContributors }: { returnedContributors: Record<string, any>[] }) {

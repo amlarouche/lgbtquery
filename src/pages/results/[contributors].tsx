@@ -1,6 +1,5 @@
 import Head from "next/head"
 import { Box, Button, Flex, Heading, Select, Text } from "@chakra-ui/react"
-import Link from "next/link"
 import UserCard from "@/components/UserCard"
 import NavBar from "@/components/NavBar"
 import axios from "axios"

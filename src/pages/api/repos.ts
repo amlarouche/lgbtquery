@@ -12,7 +12,7 @@ export default async function searchReposHandler(req: NextApiRequest, res: NextA
 
   try {
     // Send GET request to GitHub API
-    const url = `https://api.github.com/search/repositories?q=(queer OR LGBTQ OR LGBT)&${searchTerm}+in:readme&language=${language}`;
+    const url = `https://api.github.com/search/repositories?q=(queer OR LGBTQ OR LGBT AND ${searchTerm})+in:readme&language=${language}`;
     const response = await axios.get(url);
 
     // Process the response
