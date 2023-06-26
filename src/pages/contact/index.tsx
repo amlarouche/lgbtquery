@@ -21,7 +21,7 @@ export default function Contact({ returnedContributors }: { returnedContributors
             >
                 <Flex flexWrap={"wrap"} padding={"32px"} height="80vh" justify="center" align="center">
                     {returnedContributors.map((user: Record<string, any>) => (
-                        <UserCard key={user.login} user={user} />
+                        <UserCard key={user.login} user={user} isCreator={true} />
                     ))}
                 </Flex>
             </Flex>
